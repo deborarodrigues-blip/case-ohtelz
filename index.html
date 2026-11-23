@@ -1,0 +1,431 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Ohtelz — Case de Product Design | Débora C. Rodrigues</title>
+<meta name="description" content="Case de Product Design do Ohtelz: marketplace de experiências de hotel para quem não está hospedado.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Urbanist:wght@500;600;700;800&family=Figtree:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{
+  /* Layout: texto em coluna de leitura à esquerda, protótipo animado fixo à direita no topo; depois seções em coluna única com galeria lateral. */
+  --paper:#FAF8FF;
+  --surface:#FFFFFF;
+  --ink:#1E1B2E;
+  --muted:#55606B;
+  --line:#E6E0F3;
+  --accent:#8A57EA;
+  --accent-soft:#F1EAFE;
+  --brand:linear-gradient(90deg,#4BD3FB 0%,#7381F0 35%,#8D51E9 65%,#EC5FE5 100%);
+  --font-display:"Urbanist",ui-sans-serif,system-ui,-apple-system,"Segoe UI",sans-serif;
+  --font-body:"Figtree",ui-sans-serif,system-ui,-apple-system,"Segoe UI",sans-serif;
+  color-scheme:light;
+}
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{margin:0;background:var(--paper);color:var(--ink);font-family:var(--font-body);font-size:17px;line-height:1.6}
+img{max-width:100%;display:block}
+h1,h2,h3{font-family:var(--font-display);line-height:1.12;text-wrap:balance;margin:0}
+h1{font-size:clamp(34px,5vw,54px);font-weight:800;letter-spacing:-.01em}
+h2{font-size:clamp(26px,3.2vw,34px);font-weight:700}
+h3{font-size:19px;font-weight:700}
+p{margin:0}
+a{color:var(--accent)}
+.wrap{max-width:1120px;margin:0 auto;padding:0 24px}
+.eyebrow{font-family:var(--font-display);font-weight:700;font-size:13px;letter-spacing:.12em;text-transform:uppercase;color:var(--accent)}
+.rule{height:4px;width:56px;border-radius:4px;background:var(--brand)}
+section{padding:72px 0;border-top:1px solid var(--line);scroll-margin-top:56px}
+section:nth-of-type(even){background:var(--surface)}
+section:nth-of-type(even) .callout,section:nth-of-type(even) .card{background:var(--paper)}
+.topnav{position:sticky;top:0;z-index:50;background:color-mix(in srgb,var(--paper) 88%,transparent);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);border-bottom:1px solid var(--line)}
+.topnav .wrap{display:flex;align-items:center;gap:6px;height:52px;overflow-x:auto;scrollbar-width:none}
+.topnav .brand{font:800 16px var(--font-display);margin-right:auto;padding-right:16px;white-space:nowrap}
+.topnav a{font:600 14px var(--font-display);color:var(--muted);text-decoration:none;padding:6px 12px;border-radius:999px;white-space:nowrap}
+.topnav a:hover,.topnav a.on{color:var(--accent);background:var(--accent-soft)}
+.sec-head{display:grid;gap:10px;margin-bottom:8px}
+.lede{font-size:20px;color:var(--muted);max-width:60ch}
+.prose{max-width:65ch;display:grid;gap:16px;align-content:start}
+.prose p{color:var(--ink)}
+
+/* HERO */
+.hero{padding:72px 0 64px;max-width:820px}
+.hero-text{display:grid;gap:22px}
+.meta{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px 28px;margin-top:8px;padding-top:22px;border-top:1px solid var(--line)}
+.meta dt{font-size:13px;color:var(--muted);font-weight:600}
+.meta dd{margin:2px 0 0;font-weight:600;font-family:var(--font-display);font-size:17px}
+
+/* PHONE */
+.demo{display:grid;justify-items:center;gap:14px}
+.phone{--w:clamp(210px,calc((100svh - 150px) * 0.4621),280px);width:var(--w);aspect-ratio:390/844;position:relative;border-radius:46px;padding:10px;background:#15131F;box-shadow:0 30px 60px -20px rgba(60,30,120,.35),0 0 0 1px rgba(0,0,0,.08)}
+.viewport{position:relative;width:100%;height:100%;border-radius:37px;overflow:hidden;background:#fff}
+.stage{position:absolute;left:0;top:0;width:390px;height:844px;transform-origin:0 0}
+.scene{position:absolute;inset:0;opacity:0;transition:opacity .45s ease, transform .45s ease;transform:translateX(24px);overflow:hidden;background:#fff}
+.scene.on{opacity:1;transform:none}
+.scene img{position:absolute;left:0;width:390px;max-width:none}
+.full{top:0;height:844px;object-fit:cover}
+.scroller{position:absolute;left:0;top:0;width:390px}
+.scroller img{position:absolute;left:0;top:0}
+.carwin{position:absolute;left:16px;top:515px;width:358px;height:387px;overflow:hidden;background:#fff}
+.carwin img{width:1007px;height:387px;transition:transform 0s}
+.scrim{position:absolute;inset:0;background:#12121F;opacity:0;transition:opacity .35s ease}
+.sheet{position:absolute;left:0;top:280px;width:390px;height:564px;border-radius:28px 28px 0 0;overflow:hidden;transform:translateY(564px);transition:transform .38s cubic-bezier(.2,.8,.2,1);background:#fff}
+.sheet img{top:0;height:564px;transition:opacity .22s ease}
+.tap{position:absolute;width:44px;height:44px;margin:-22px 0 0 -22px;border-radius:50%;background:rgba(138,87,234,.35);border:2px solid rgba(255,255,255,.9);box-shadow:0 0 0 1px rgba(138,87,234,.6);opacity:0;transform:scale(.6);pointer-events:none;z-index:20}
+.tap.go{animation:tap .7s ease-out}
+.tap.hold{opacity:1;transform:scale(1);animation:none}
+@keyframes tap{0%{opacity:0;transform:scale(.6)}25%{opacity:1;transform:scale(1)}100%{opacity:0;transform:scale(1.6)}}
+.caption{font-family:var(--font-display);font-weight:600;font-size:15px;color:var(--ink);min-height:22px;text-align:center}
+.steps{display:flex;gap:6px}
+.steps i{width:8px;height:8px;border-radius:50%;background:var(--line);transition:background .3s, width .3s}
+.steps i.on{background:var(--accent);width:22px;border-radius:6px}
+
+/* PROBLEM */
+.two{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:48px;margin-top:28px}
+.callout{background:var(--surface);border:1px solid var(--line);border-radius:18px;padding:28px;display:grid;gap:14px;align-content:start}
+.callout ul{margin:0;padding-left:20px;display:grid;gap:8px}
+.cats{display:flex;flex-wrap:wrap;gap:8px}
+.cats span{font-family:var(--font-display);font-weight:600;font-size:14px;padding:6px 12px;border-radius:999px;border:1.5px solid var(--accent);color:var(--accent)}
+.cats span.sel{background:var(--accent);color:#fff}
+
+/* FLOW GALLERY */
+.gal-head{display:flex;justify-content:space-between;align-items:end;gap:16px;flex-wrap:wrap}
+.gal-nav{display:flex;gap:8px}
+.gal-nav button{font:600 15px var(--font-display);width:44px;height:44px;border-radius:50%;border:1.5px solid var(--line);background:var(--surface);color:var(--ink);cursor:pointer}
+.gal-nav button:hover{border-color:var(--accent);color:var(--accent)}
+button:focus-visible,a:focus-visible{outline:3px solid var(--accent);outline-offset:3px}
+.gallery{display:flex;gap:24px;overflow-x:auto;scroll-snap-type:x mandatory;padding:28px 2px 18px;margin-top:8px;scrollbar-width:thin}
+.shot{scroll-snap-align:start;flex:0 0 232px;min-width:0;display:grid;gap:12px;align-content:start}
+.shot figure{margin:0;border-radius:26px;overflow:hidden;border:1px solid var(--line);background:#fff;aspect-ratio:390/844}
+.shot figure img{width:100%;height:100%;object-fit:cover}
+.shot .n{font:700 13px var(--font-display);color:var(--accent);letter-spacing:.06em}
+.shot h3{font-size:17px}
+.shot p{font-size:14.5px;color:var(--muted);line-height:1.5}
+
+/* DECISIONS */
+.grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:20px;margin-top:32px}
+.card{background:var(--surface);border:1px solid var(--line);border-radius:18px;padding:24px;display:grid;gap:10px;align-content:start}
+.card .tag{font:700 12px var(--font-display);letter-spacing:.1em;text-transform:uppercase;color:var(--muted)}
+.card p{font-size:15.5px;color:var(--muted)}
+.card code{font-size:13px;background:var(--accent-soft);color:#5B2FC0;padding:1px 6px;border-radius:6px}
+
+/* ROLE / ABOUT */
+.role{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:48px;margin-top:28px}
+.list{margin:0;padding:0;list-style:none;display:grid;gap:12px}
+.list li{padding-left:22px;position:relative}
+.list li::before{content:"";position:absolute;left:0;top:.62em;width:10px;height:3px;border-radius:2px;background:var(--accent)}
+.timeline{display:grid;gap:0;border-left:2px solid var(--line);margin-left:4px}
+.timeline div{padding:0 0 22px 20px;position:relative}
+.timeline div::before{content:"";position:absolute;left:-7px;top:6px;width:12px;height:12px;border-radius:50%;background:var(--paper);border:2px solid var(--accent)}
+.timeline b{font-family:var(--font-display);font-size:17px;display:block}
+.timeline span{font-size:14px;color:var(--muted)}
+.chips{display:flex;flex-wrap:wrap;gap:8px}
+.chips span{font-size:14px;padding:5px 12px;border-radius:999px;background:var(--accent-soft);color:#4A2A99;font-weight:500}
+footer{padding:40px 0 56px;border-top:1px solid var(--line);color:var(--muted);font-size:14px}
+
+@media (max-width:900px){
+  .hero{grid-template-columns:1fr}
+  .demo{order:-1}
+  .two,.role{grid-template-columns:1fr;gap:28px}
+  .grid{grid-template-columns:1fr 1fr}
+}
+@media (max-width:560px){
+  .wrap{padding:0 18px}
+  .grid{grid-template-columns:1fr}
+  .meta{grid-template-columns:1fr 1fr}
+  .phone{--w:240px}
+  section{padding:56px 0}
+}
+@media (prefers-reduced-motion:reduce){
+  .scene,.sheet,.scrim,.sheet img{transition-duration:.01s}
+}
+
+/* IMPACT */
+.impact{display:flex;align-items:center;gap:20px;margin-top:6px;padding:20px 24px;border-radius:18px;background:var(--surface);border:1px solid var(--line)}
+.impact strong{font:800 clamp(40px,5vw,56px)/1 var(--font-display);background:var(--brand);-webkit-background-clip:text;background-clip:text;color:transparent;flex:none}
+.impact p{font-size:16px;color:var(--ink);max-width:46ch}
+@media (max-width:560px){.impact{flex-direction:column;align-items:flex-start;gap:8px}}
+/* PROTOTYPE */
+.proto{display:grid;grid-template-columns:auto minmax(0,1fr);gap:56px;align-items:center}
+#prototipo{padding:36px 0}
+.ilist{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:1fr 1fr;gap:4px 12px;counter-reset:i}
+.ilist li{counter-increment:i;display:grid;align-content:start;grid-template-columns:30px minmax(0,1fr);gap:2px 10px;padding:6px 12px;border-radius:12px;color:var(--muted);transition:background .3s,color .3s}
+.ilist li::before{content:counter(i,decimal-leading-zero);font:700 13px var(--font-display);color:var(--line);padding-top:3px;transition:color .3s}
+.ilist li b{font-family:var(--font-display);font-size:15px;color:var(--ink);font-weight:600}
+.ilist li span{grid-column:2;font-size:13.5px;line-height:1.4}
+.ilist li.on{background:var(--surface);box-shadow:0 0 0 1.5px var(--accent);color:var(--ink)}
+.ilist li.on::before{color:var(--accent)}
+.ilist li.done::before{color:var(--accent)}
+.legend{font-size:14px;color:var(--muted);margin-top:14px}
+@media (max-width:1000px){.ilist{grid-template-columns:1fr}}
+@media (max-width:900px){.proto{grid-template-columns:1fr;justify-items:center;gap:32px}.ilist{width:100%}}
+</style>
+</head>
+<body>
+
+<nav class="topnav" aria-label="Seções do case">
+  <div class="wrap">
+    <span class="brand">Ohtelz</span>
+    <a href="#case">Case</a><a href="#problema">Problema</a><a href="#prototipo">Protótipo</a><a href="#fluxo">Fluxo</a><a href="#decisoes">Decisões</a><a href="#atuacao">Atuação</a>
+  </div>
+</nav>
+
+<div class="wrap" id="case">
+  <header class="hero">
+    <div class="hero-text">
+      <span class="eyebrow">Case de Product Design · App mobile</span>
+      <h1>Ohtelz: o que o hotel tem de melhor, sem precisar se hospedar</h1>
+      <p class="lede">Um marketplace para vender a quem não está hospedado os serviços que o hotel já tem: café da manhã, day use, spa, happy hour, quadras e eventos.</p>
+      <div class="rule" aria-hidden="true"></div>
+      <dl class="meta">
+        <div><dt>Papel</dt><dd>Product Designer</dd></div>
+        <div><dt>Período</dt><dd>Jun/2023 – Dez/2024</dd></div>
+        <div><dt>Escopo</dt><dd>Discovery ao MVP lançado</dd></div>
+        <div><dt>Contexto</dt><dd>Rebase · squad com PM, Tech Lead e devs</dd></div>
+      </dl>
+      <div class="impact">
+        <strong>+50%</strong>
+        <p>de melhoria na divulgação de experiências de hotelaria que, antes, as pessoas não sabiam que podiam aproveitar sem se hospedar.</p>
+      </div>
+    </div>
+  </header>
+</div>
+
+<section id="problema">
+  <div class="wrap">
+    <span class="eyebrow">01 · O problema</span>
+    <div class="two">
+      <div class="prose">
+        <h2>Serviços que o hotel já opera, mas só vende para o hóspede</h2>
+        <p>Restaurante, spa, piscina, quadras e salões funcionam o dia todo, mas a venda desses serviços está amarrada à diária: quem mora na cidade não sabe que pode tomar o café da manhã do hotel, nem tem um canal para comprar.</p>
+        <p>O Ohtelz separa a oferta da hospedagem. O hotel publica experiências com preço, dias e horários disponíveis, e o cliente compra um cupom e usa no próprio hotel.</p>
+      </div>
+      <div class="callout">
+        <h3>O que o produto precisava resolver</h3>
+        <ul>
+          <li>Fazer quem nunca pensou em ir ao hotel sem se hospedar descobrir a oferta.</li>
+          <li>Comunicar desconto e regras de uso (prazo, dias, agendamento) antes da compra.</li>
+          <li>Funcionar com o pagamento feito no hotel: o app gera o cupom e não processa o valor.</li>
+          <li>Organizar ofertas muito diferentes entre si em categorias que façam sentido.</li>
+        </ul>
+        <div class="cats" aria-label="Categorias do app">
+          <span class="sel">Gastronomia</span><span>Lazer</span><span>Esportes</span><span>Entretenimento</span><span>Business</span><span>Bem estar</span><span>Combos</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="prototipo">
+  <div class="wrap">
+    <div class="proto">
+      <div class="demo" aria-label="Protótipo animado do fluxo principal">
+        <div class="phone" id="phone">
+          <div class="viewport">
+            <div class="stage" id="stage">
+              <div class="scene" data-s="home"><img class="full" src="img/home_deslogada.webp" alt="Home do Ohtelz sem login"></div>
+              <div class="scene" data-s="login"><img class="full" src="img/signin1.webp" alt="Tela de login com acesso social"></div>
+              <div class="scene" data-s="homelog">
+                <div class="scroller" id="homeScroll" style="top:203px">
+                  <img src="img/homelog_content.webp" alt="Home logada com carrosséis de ofertas" style="width:390px;height:2532px">
+                  <div class="carwin"><img id="carousel" src="img/carousel.webp" alt="Carrossel Imperdíveis"></div>
+                </div>
+                <img src="img/homelog_header.webp" alt="" style="top:0;height:203px">
+                <img src="img/homelog_footer.webp" alt="" style="top:764px;height:80px">
+                <div class="scrim" id="scrim"></div>
+                <div class="sheet" id="sheet">
+                  <img id="sh0" src="img/sheet_000.webp" alt="Bottom sheet Pesquisar com categorias">
+                  <img id="sh1" src="img/sheet_100.webp" alt="" style="opacity:0">
+                  <img id="sh2" src="img/sheet_101.webp" alt="" style="opacity:0">
+                </div>
+              </div>
+              <div class="scene" data-s="result">
+                <div class="scroller" id="srScroll" style="top:191px"><img src="img/sr_body.webp" alt="Resultado da busca por Café" style="width:390px;height:1688px"></div>
+                <img src="img/sr_header.webp" alt="" style="top:0;height:203px">
+                <img src="img/sr_footer.webp" alt="" style="top:764px;height:80px">
+              </div>
+              <div class="scene" data-s="exp"><img class="full" src="img/exp_first.webp" alt="Primeira dobra da experiência Café da manhã para 2"></div>
+              <div class="scene" data-s="detail">
+                <div class="scroller" id="expScroll"><img src="img/exp_detail_content.webp" alt="Detalhe da experiência com regras e hotel" style="width:390px;height:2532px"></div>
+                <img src="img/exp_detail_cta.webp" alt="" style="top:622px;height:222px">
+              </div>
+              <div class="scene" data-s="checkout">
+                <div class="scroller" id="ckScroll"><img src="img/checkout_content.webp" alt="Checkout com informações da oferta" style="width:390px;height:1361px"></div>
+                <img src="img/checkout_cta.webp" alt="" style="top:665px;height:179px">
+              </div>
+              <div class="scene" data-s="cupom"><img class="full" src="img/cupom.webp" alt="Cupom gerado com código"></div>
+              <div class="tap" id="tap"></div>
+            </div>
+          </div>
+        </div>
+        <div class="steps" id="steps" aria-hidden="true"></div>
+      </div>
+      <div>
+        <div class="sec-head" style="margin-bottom:18px"><span class="eyebrow">02 · O protótipo</span><h2>Todas as interações, do primeiro toque ao cupom</h2></div>
+        <ol class="ilist" id="ilist">
+          <li><b>Home sem login</b><span>Header e tab bar fixos. Toque em "Entrar".</span></li>
+          <li><b>Login social</b><span>Toque em "Acesse com Google".</span></li>
+          <li><b>Rolagem vertical</b><span>O conteúdo rola por baixo do header e da tab bar, que ficam fixos.</span></li>
+          <li><b>Carrossel horizontal</b><span>Os cards de "Imperdíveis" deslizam para o lado sem mexer na página.</span></li>
+          <li><b>Abrir o filtro</b><span>Toque em "Pesquisar": o bottom sheet sobe e a home escurece.</span></li>
+          <li><b>Selecionar categoria</b><span>Toque em Gastronomia: o chip muda de contorno para preenchido.</span></li>
+          <li><b>Buscar por texto</b><span>O campo recebe "Café".</span></li>
+          <li><b>Filtrar</b><span>O sheet fecha e abre o resultado da busca, que rola.</span></li>
+          <li><b>Abrir a experiência</b><span>Toque no card de café da manhã.</span></li>
+          <li><b>Detalhe com CTA fixo</b><span>Toque em "Comprar agora". A página rola e o bloco de compra fica preso na base.</span></li>
+          <li><b>Checkout</b><span>As regras rolam e "Gerar cupom" continua fixo.</span></li>
+          <li><b>Cupom</b><span>O ticket aparece com o código e os dias de uso.</span></li>
+        </ol>
+        <p class="legend">O círculo roxo marca cada toque. A animação roda sozinha, em loop.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="fluxo">
+  <div class="wrap">
+    <div class="gal-head">
+      <div style="display:grid;gap:10px">
+        <span class="eyebrow">03 · O fluxo</span>
+        <h2>Da descoberta ao cupom, tela a tela</h2>
+      </div>
+      <div class="gal-nav">
+        <button type="button" id="prev" aria-label="Tela anterior">←</button>
+        <button type="button" id="next" aria-label="Próxima tela">→</button>
+      </div>
+    </div>
+    <div class="gallery" id="gallery" tabindex="0" aria-label="Telas do fluxo">
+      <article class="shot"><figure><img src="img/home_deslogada.webp" alt="Home sem login" loading="lazy"></figure><span class="n">01 · HOME</span><h3>Descobrir sem cadastro</h3><p>A home abre sem login. Categorias fixas no topo e ofertas em carrosséis horizontais, com o próximo card aparecendo pela borda para mostrar que a lista continua.</p></article>
+      <article class="shot"><figure><img src="img/signin1.webp" alt="Login social" loading="lazy"></figure><span class="n">02 · LOGIN</span><h3>Login social primeiro</h3><p>Facebook, Google e celular aparecem antes do e-mail e senha, para reduzir a fricção de quem chegou pelo desejo de uma oferta.</p></article>
+      <article class="shot"><figure><img src="img/signin2.webp" alt="Login com e-mail" loading="lazy"></figure><span class="n">03 · E-MAIL</span><h3>E-mail como alternativa</h3><p>O e-mail e senha ficam numa segunda etapa, com "Lembrar", recuperação de senha e o atalho social mantido embaixo.</p></article>
+      <article class="shot"><figure><img src="img/g_home_logada.webp" alt="Home logada" loading="lazy"></figure><span class="n">04 · HOME LOGADA</span><h3>Mesma vitrine, com perfil</h3><p>Depois do login, a tab bar troca "Entrar" por Favoritos, Tickets e Perfil. Os cupons comprados passam a ter onde ficar.</p></article>
+      <article class="shot"><figure><img src="img/g_filtro.webp" alt="Filtro em bottom sheet" loading="lazy"></figure><span class="n">05 · FILTRO</span><h3>Busca e categorias juntas</h3><p>Um bottom sheet junta a busca por texto com categorias de seleção múltipla, sem tirar a pessoa do contexto da home. O botão Filtrar fica sempre no alcance do polegar.</p></article>
+      <article class="shot"><figure><img src="img/g_resultado.webp" alt="Resultado da busca" loading="lazy"></figure><span class="n">06 · RESULTADO</span><h3>O termo buscado em destaque</h3><p>O título repete a busca ("Café") na cor de destaque. A lista vertical mostra hotel, bairro, avaliação, desconto e preço "de/por" em cada card.</p></article>
+      <article class="shot"><figure><img src="img/g_exp_detail.webp" alt="Detalhe da experiência" loading="lazy"></figure><span class="n">07 · EXPERIÊNCIA</span><h3>Compra sempre à vista</h3><p>Prazo, endereço, regras e informações do hotel rolam livremente, enquanto o bloco de preço com "Comprar agora" fica fixo na base.</p></article>
+      <article class="shot"><figure><img src="img/checkout.webp" alt="Checkout" loading="lazy"></figure><span class="n">08 · CHECKOUT</span><h3>Gerar cupom, pagar no hotel</h3><p>O checkout confirma dias disponíveis e horário de funcionamento, e deixa claro que o valor é pago diretamente ao hotel.</p></article>
+      <article class="shot"><figure><img src="img/cupom.webp" alt="Cupom" loading="lazy"></figure><span class="n">09 · CUPOM</span><h3>Um ingresso, não um recibo</h3><p>O cupom tem visual de ticket destacável: código grande, dias válidos marcados, agendamento e contatos do hotel. Dá para baixar ou compartilhar.</p></article>
+    </div>
+  </div>
+</section>
+
+<section id="decisoes">
+  <div class="wrap">
+    <span class="eyebrow">04 · Decisões de design</span>
+    <h2 style="margin-top:10px;max-width:24ch">Como as telas foram pensadas</h2>
+    <div class="grid">
+      <div class="card"><span class="tag">Navegação</span><h3>Tab bar que muda com o estado</h3><p>Sem login, são 4 itens (Home, Pesquisar, Entrar, Ver mais). Com login, são 5 (Home, Favoritos, Pesquisar, Tickets, Perfil). A conta aparece quando passa a fazer sentido.</p></div>
+      <div class="card"><span class="tag">Descoberta</span><h3>Uma linha de carrossel por tema</h3><p>Seções como Imperdíveis, Experiências únicas e Gastronomia rolam na horizontal, e a página rola na vertical. O card cortado na borda indica que há mais conteúdo.</p></div>
+      <div class="card"><span class="tag">Filtro</span><h3>Bottom sheet com estado visível</h3><p>Chips selecionados ficam preenchidos e os não selecionados ficam com contorno. O sheet sobe sobre a home escurecida e fecha com um toque fora dele.</p></div>
+      <div class="card"><span class="tag">Conversão</span><h3>Preço ancorado e CTA fixo</h3><p>O "De R$98 por R$24" e o selo de desconto aparecem no card, na experiência e no checkout. O CTA não sai da tela durante a leitura das regras.</p></div>
+      <div class="card"><span class="tag">Regra de negócio</span><h3>Pagamento no hotel</h3><p>Como o app não processa o pagamento, o CTA final é "Gerar cupom" e não "Pagar". O texto "pago diretamente ao hotel" evita a expectativa de cobrança no app.</p></div>
+      <div class="card"><span class="tag">Design System</span><h3>Componentes com variantes</h3><p>Botão com variantes de <code>Size</code>, <code>Type</code> e <code>State</code>, campos de texto, cards de oferta e tab bar compartilhados entre telas e com estados de hover e clique para o protótipo.</p></div>
+    </div>
+  </div>
+</section>
+
+<section id="atuacao">
+  <div class="wrap">
+    <span class="eyebrow">05 · Minha atuação</span>
+    <div class="role">
+      <div class="prose">
+        <h2>Do Discovery ao MVP lançado</h2>
+        <ul class="list">
+          <li>Conduzi entrevistas e surveys para identificar necessidades, validar hipóteses e apoiar a priorização das funcionalidades.</li>
+          <li>Estruturei jornadas, arquitetura da informação e fluxos, considerando usabilidade, regras de negócio e acessibilidade (WCAG).</li>
+          <li>Criei as interfaces, os protótipos navegáveis e o Design System, com componentes e padrões para manter consistência e escala.</li>
+          <li>Trabalhei em squad com Product Manager, Tech Lead e desenvolvedores, nos refinamentos e alinhamentos entre Design, Produto e Tecnologia.</li>
+          <li>Fiz o handoff, acompanhei a implementação e participei do QA para garantir que o produto entregue fosse fiel ao projetado.</li>
+          <li>Validei as soluções com usuários reais e transformei os aprendizados em melhorias para a evolução do produto.</li>
+          <li>Resultado: 50% de melhoria na divulgação das experiências de hotelaria para quem não sabia que podia usá-las sem se hospedar.</li>
+        </ul>
+      </div>
+      <div class="callout">
+        <span class="eyebrow">Sobre mim</span>
+        <h3 style="font-size:24px">Débora C. Rodrigues<br><span style="font-weight:600;color:var(--muted);font-size:18px">Senior Product Designer</span></h3>
+        <p>Product Designer com mais de 5 anos em produtos digitais B2B, B2C e SaaS, nos segmentos de fintech, healthtech, logística, hotelaria e educação. Conecto Product Strategy, Discovery, UX Research e Design para transformar problemas complexos de negócio em decisões de produto, tanto em produtos novos quanto na evolução de plataformas e jornadas operacionais.</p>
+        <div class="timeline">
+          <div><b>Senior Product Designer · Rebase</b><span>Mai/2021 – Jun/2026 · 10 projetos, entre eles Cash.Tools, Afya, LetzPlay, Shelf Supervisor e Ohtelz</span></div>
+          <div><b>Product Designer Pleno · BV Financeira</b><span>Dez/2021 – Abr/2023 · produto interno de investigação e recuperação de ativos</span></div>
+          <div style="padding-bottom:0"><b>Formação</b><span>Arquitetura e Urbanismo (FMU) · MBA em Transformação Digital e Liderança, em andamento (Conquer)</span></div>
+        </div>
+        <div class="chips">
+          <span>Product Discovery</span><span>UX Research</span><span>Design Systems</span><span>Prototipação</span><span>Acessibilidade (WCAG)</span><span>IA no processo de design</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">Ohtelz · projeto desenvolvido na Rebase. Telas extraídas do arquivo de design do produto.</div>
+</footer>
+
+<script>
+(function(){
+  const phone=document.getElementById('phone'), stage=document.getElementById('stage');
+  function fit(){ const vp=phone.querySelector('.viewport'); stage.style.transform='scale('+(vp.clientWidth/390)+')'; }
+  fit(); window.addEventListener('resize',fit);
+  const scenes={}; document.querySelectorAll('.scene').forEach(s=>scenes[s.dataset.s]=s);
+  const tap=document.getElementById('tap'), stepsEl=document.getElementById('steps');
+  const items=[...document.querySelectorAll('#ilist li')];
+  items.forEach(()=>stepsEl.appendChild(document.createElement('i')));
+  const dots=[...stepsEl.children];
+  const reduce=window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const wait=ms=>new Promise(r=>setTimeout(r,ms));
+  function step(i){ items.forEach((li,k)=>{li.classList.toggle('on',k===i); li.classList.toggle('done',k<i);}); dots.forEach((d,k)=>d.classList.toggle('on',k===i)); }
+  function show(name){ Object.values(scenes).forEach(s=>s.classList.toggle('on',s.dataset.s===name)); }
+  async function press(x,y){ tap.classList.remove('hold'); tap.style.transition='none'; tap.style.left=x+'px'; tap.style.top=y+'px'; tap.classList.remove('go'); void tap.offsetWidth; tap.classList.add('go'); await wait(450); }
+  async function swipe(x1,x2,y,ms){ tap.classList.remove('go'); tap.style.transition='none'; tap.style.left=x1+'px'; tap.style.top=y+'px'; tap.classList.add('hold'); void tap.offsetWidth; tap.style.transition='left '+ms+'ms cubic-bezier(.45,.05,.35,1)'; tap.style.left=x2+'px'; await wait(ms); tap.classList.remove('hold'); }
+  function move(el,prop,val,ms){ el.style.transition=reduce?'none':'transform '+ms+'ms cubic-bezier(.45,.05,.35,1)'; el.style.transform=prop+'('+val+'px)'; return wait(reduce?250:ms); }
+  const sc=(el,y,ms)=>move(el,'translateY',-y,ms);
+  const sheet=document.getElementById('sheet'), scrim=document.getElementById('scrim');
+  const sh=[0,1,2].map(i=>document.getElementById('sh'+i));
+  const sheetState=i=>sh.forEach((im,k)=>im.style.opacity=(k===i?1:0));
+  const homeS=document.getElementById('homeScroll'), srS=document.getElementById('srScroll'), expS=document.getElementById('expScroll'), ckS=document.getElementById('ckScroll'), car=document.getElementById('carousel');
+  function reset(){ [homeS,srS,expS,ckS,car].forEach(el=>{el.style.transition='none'; el.style.transform='none';}); sheet.style.transform='translateY(564px)'; scrim.style.opacity=0; sheetState(0); }
+
+  async function loop(){
+    while(true){
+      reset(); show('home'); step(0); await wait(1800);
+      await press(250,806);
+      show('login'); step(1); await wait(1600);
+      await press(195,483);
+      show('homelog'); step(2); await wait(800);
+      await sc(homeS,330,1300); await wait(400);
+      step(3);
+      await swipe(320,90,420,900); move(car,'translateX',-341,700); await wait(800);
+      await swipe(320,90,420,900); move(car,'translateX',-649,700); await wait(900);
+      await swipe(90,330,420,900); move(car,'translateX',0,800); await wait(900);
+      step(2); await sc(homeS,1500,2200); await wait(400); await sc(homeS,0,1500); await wait(300);
+      step(4); await press(155,806);
+      scrim.style.opacity=.45; sheet.style.transform='translateY(0)'; await wait(1200);
+      step(5); await press(102,530); sheetState(1); await wait(1100);
+      step(6); await press(195,421); sheetState(2); await wait(1100);
+      step(7); await press(195,774);
+      show('result'); await wait(700); await sc(srS,520,1700); await wait(400); await sc(srS,0,1000); await wait(300);
+      step(8); await press(195,440);
+      show('exp'); await wait(1500);
+      step(9); await press(195,704);
+      show('detail'); await wait(700); await sc(expS,1650,3600); await wait(500);
+      await press(195,706);
+      show('checkout'); step(10); await wait(800); await sc(ckS,560,2000); await wait(600);
+      await press(195,780);
+      show('cupom'); step(11); await wait(3000);
+    }
+  }
+  loop();
+  const links=[...document.querySelectorAll('.topnav a')];
+  const secs=links.map(a=>document.querySelector(a.getAttribute('href')));
+  const io=new IntersectionObserver(es=>es.forEach(e=>{ if(e.isIntersecting){ const id='#'+e.target.id; links.forEach(a=>a.classList.toggle('on',a.getAttribute('href')===id)); } }),{rootMargin:'-45% 0px -50% 0px'});
+  secs.forEach(x=>x&&io.observe(x));
+
+  const g=document.getElementById('gallery');
+  const st=()=>g.querySelector('.shot').getBoundingClientRect().width+24;
+  document.getElementById('prev').addEventListener('click',()=>g.scrollBy({left:-st(),behavior:'smooth'}));
+  document.getElementById('next').addEventListener('click',()=>g.scrollBy({left:st(),behavior:'smooth'}));
+  g.addEventListener('keydown',e=>{ if(e.key==='ArrowRight'){e.preventDefault();g.scrollBy({left:st(),behavior:'smooth'});} if(e.key==='ArrowLeft'){e.preventDefault();g.scrollBy({left:-st(),behavior:'smooth'});} });
+})();
+</script>
+</body>
+</html>
